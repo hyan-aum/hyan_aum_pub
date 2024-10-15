@@ -75,11 +75,13 @@ def view_sales(sales_list: list) -> bool:
 
 
 def add_sales1(sales_list) -> None:
-    pass
+    sales_list.append(data := sd.from_input1())
+    print(f"Sales for {data["sales_date"]} is added.\n")
 
 
 def add_sales2(sales_list) -> None:
-    pass
+    sales_list.append(data := sd.from_input2())
+    print(f"Sales for {data["sales_date"]} is added.\n")
 
 
 # [Modify the code accordingly to use objects from other module]
@@ -102,7 +104,7 @@ def import_sales(sales_list) -> None:
     else:
         # import sales data from file
         try:
-            imported_sales_list = import_sales(filepath_name)  
+            imported_sales_list = import_sales(filepath_name)  # function in the imported module
         except Exception as e:  
             print(f"{type(e)}. Fail to import sales from '{filename}'.")
         else:
