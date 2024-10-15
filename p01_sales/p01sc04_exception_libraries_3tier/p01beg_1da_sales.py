@@ -39,11 +39,11 @@ def input_int(entry_item: str, high: int, low: int = 1, fmt_width: int = 20) -> 
 
 
 def input_year() -> int:
-    pass
+    return input_int('year', MAX_YEAR, MIN_YEAR)
 
 
 def input_month() -> int:
-    pass
+    return input_int("month", 12, fmt_width=20)
 
 
 def is_leap_year(year: int) -> bool:
@@ -69,15 +69,17 @@ def cal_max_day(year: int, month: int) -> int:
 
 
 def input_day(year: int, month: int) -> int:
-    pass
+    max_day = cal_max_day(year, month)
+    parameters = {"entry_item": "day", "high": max_day}
+    return input_int(**parameters)
 
 
 def is_valid_region(region_code: str) -> bool:
-    pass
+    return tuple(VALID_REGIONS.keys()).count(region_code) == 1
 
 
 def get_region_name(region_code: str) -> str:
-    pass
+    return VALID_REGIONS[region_code]
 
 
 def input_region_code() -> str:
@@ -174,11 +176,17 @@ def from_input2():
 
 
 def is_valid_filename_format(sales_filename: str) -> bool:
-    pass
+    if len(sales_filename) == len(NAMING_CONVENTION) and \
+       sales_filename[:7] == NAMING_CONVENTION[:7] and \
+       sales_filename[8] == NAMING_CONVENTION[8] and \
+       sales_filename[13] == NAMING_CONVENTION[-6] and \
+       sales_filename[-4:] == NAMING_CONVENTION[-4:]:
+        return True
+    return False
 
 
 def get_region_code(sales_filename: str) -> str:
-    pass
+    return sales_filename[sales_filename.rfind('.') - 1]
 
 
 # [Add code to handle exception FileNotFoundError]
