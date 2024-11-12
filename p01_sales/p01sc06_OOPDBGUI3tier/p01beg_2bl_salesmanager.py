@@ -1,4 +1,4 @@
-# [import any other necessary module(s)]
+from p01_1da_sales import *
 
 from decimal import Decimal, ROUND_HALF_UP
 import locale as lc
