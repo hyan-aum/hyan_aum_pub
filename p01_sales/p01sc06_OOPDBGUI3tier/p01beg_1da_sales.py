@@ -3,7 +3,8 @@
 from dataclasses import dataclass
 from datetime import date, datetime
 from typing import Optional
-
+from pathlib import Path
+import csv
 
 @dataclass
 class Region:
@@ -156,8 +157,6 @@ class SalesList:
 
 
 # -------------- Data Access (File) --------------------------
-from pathlib import Path
-import csv
 
 class DataFileAccess:
     FILEPATH = Path(__file__).parent.parent / 'p01_files'
