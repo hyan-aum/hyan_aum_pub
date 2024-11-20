@@ -37,7 +37,6 @@ class SalesFrame(ttk.Frame):
         # Display the grid of labels and text entry fields
         self.pack()
         ttk.Label(self, text="Enter date and region to get sales amount",
-                  # justify="center", anchor="center"
                   ).grid(row=0, column=0, columnspan=4)
 
         ttk.Label(self, text="Date:").grid(row=1, column=0, sticky=tk.E)
@@ -82,8 +81,6 @@ class SalesFrame(ttk.Frame):
             # check if sales date is in the right format
             try:
                 sales_date = datetime.strptime(sales_date, Sales.DATE_FORMAT).date()  # ValueError
-                # print(f"{sales_date} was entered")
-
             except ValueError:
                 messagebox.showerror("Error", f"{sales_date} is not in a valid date format \n"
                                               "'yyyy-mm-dd'")
@@ -94,16 +91,13 @@ class SalesFrame(ttk.Frame):
                 if region_code not in region_codes:
                     messagebox.showerror("Error", f"{region_code} is not one of the following \n"
                                                   f"region code: {region_codes}")
-
                 else: # check if there is sales by the date and region
                     self.sales = self.sqlite_dbaccess.retrieve_sales_by_date_region(sales_date, region_code)
                     if self.sales is None:
                         # clear id and amount field
                         self.amount.set("")
                         self.id.set("")
-                        # get regions from db and notify user for no sales and expected values
-                        regions = self.sqlite_dbaccess.retrieve_regions()
-                        # region_codes = [(region.code) for region in regions]
+                        # notify user for no sales and expected values
                         messagebox.showerror("Error", "No sales found.")
                     else:
                         self.amount.set(self.sales.amount)
@@ -142,7 +136,6 @@ class SalesFrame(ttk.Frame):
             sales_date = datetime.strptime(sales_date, Sales.DATE_FORMAT).date()
             region = Regions().get(region_code)
             self.sales = Sales(id, amount, sales_date, region)
-            # print(f"saveChanges: {type(self.sales)=}, {str(self.sales)=}")
             self.sqlite_dbaccess.update_sales(self.sales)
             messagebox.showinfo("Success", f"{str(self.sales)} is updated.")
             self.clear_field()
