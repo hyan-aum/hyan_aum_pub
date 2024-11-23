@@ -5,7 +5,7 @@ import unittest
 # Allows running external processes (like your console application) and interacting with their input/output.
 import subprocess
 
-project: str = 'p01_sales_g##'   # [Please replace the ## with your group number.]
+
 entry_point: str = '../../p01sc4_exception_libraries_3tier/p01_3ui_console.py'
 all_sales_csv: str = '../../p01_files/all_sales.csv'
 imported_files_txt: str = '../../p01_files/imported_files.txt'
@@ -283,10 +283,10 @@ class TestSalesDataImporter(unittest.TestCase):
         self.assertIn("Saved sales records.", stdout)
         self.assertIn("Bye!", stdout)
 
-def run_tests():
+def run_tests(group):
     # Open the log file for writing test results
     with open(test_log, "a") as f:
-        header = "\n" + "~" * 10 + f" GROUP {project[-2:]} REPORT " + "~" * 10 + "\n"
+        header = "\n" + "~" * 10 + f" GROUP {group} REPORT " + "~" * 10 + "\n"
         f.write(header)
         # Create a test runner with the log file as the output stream
         runner = unittest.TextTestRunner(stream=f, verbosity=2)
@@ -295,12 +295,18 @@ def run_tests():
 
 
 if __name__ == "__main__":
-    run_tests()
+    import sys
+    # Parse custom arguments
+    custom_args = []
+    remaining_args = []
+    for arg in sys.argv:
+        if arg.startswith("--"):
+            custom_args.append(arg)
+        else:
+            remaining_args.append(arg)
+    # Set the remaining arguments back to sys.argv
+    sys.argv = remaining_args
+    group = custom_args[0].replace('--', '')
 
-
-
-
-
-
-
+    run_tests(group)
 
