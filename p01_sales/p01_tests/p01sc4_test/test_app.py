@@ -6,10 +6,11 @@ import unittest
 import subprocess
 
 
-entry_point: str = '../../p01sc4_exception_libraries_3tier/p01_3ui_console.py'
-all_sales_csv: str = '../../p01_files/all_sales.csv'
-imported_files_txt: str = '../../p01_files/imported_files.txt'
-test_log: str = './test_log.txt'
+from pathlib import Path
+entry_point: Path = Path('../../p01sc4_exception_libraries_3tier/p01_3ui_console.py')
+all_sales_csv: Path = Path('../../p01_files/all_sales.csv')
+imported_files_txt: Path = Path('../../p01_files/imported_files.txt')
+test_log: Path = Path('./test_log.txt')
 
 
 class TestSalesDataImporter(unittest.TestCase):
